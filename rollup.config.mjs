@@ -11,13 +11,13 @@ const __dirname = path.dirname(__filename) // 打包的配置对象
 export default { 
     input: {
         main: './src/index.ts',
-        secondary: './src/pixel.ts'
+        // secondary: './src/pixel.ts'
     }, 
     output: [
         { 
             dir: 'dist',
             // file: path.resolve(__dirname, 'dist/pixel.bundle.js'), // 打包的文件在当前目录下dist文件夹 
-            format: 'esm', 
+            format: 'iife', 
             sourcemap: true,
             entryFileNames: '[name].bundle.js'
         },

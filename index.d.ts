@@ -6,8 +6,8 @@ declare global {
     interface Window {
         WorkmagicPixelData: {
             version: string;
-            platform: string;
-            isHeadless: boolean;
+            tenantId: string;
+            tenantIdSign: string;
         };
         [key: string]: string | number | boolean | any[] | FunType;
     }
