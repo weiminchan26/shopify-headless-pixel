@@ -1,10 +1,29 @@
 import Pixel from "./pixel";
 type FunType = (...args: any[]) => unknown;
-
-
-
 // 主函数
 (function (windowObject: Window, identifier: string, localStorage: Storage) {
+    const autoMonitorPage = () => {
+        let currentUrl = windowObject.location.href;
+        const originalPushState = history.pushState;
+        const originalReplaceState = history.replaceState;
+        history.pushState = function(...args) {
+            originalPushState.apply(history, args);
+            triggerPageViewEvent();
+        };
+        history.replaceState = function(...args) {
+            originalReplaceState.apply(history, args);
+            triggerPageViewEvent();
+        };
+        windowObject.addEventListener('popstate', triggerPageViewEvent);
+        windowObject.addEventListener('hashchange', triggerPageViewEvent);
+        function triggerPageViewEvent() {
+            const newUrl = windowObject.location.href;
+            if (newUrl !== currentUrl) {
+                currentUrl = newUrl;
+                (windowObject[identifier] as FunType)('page_viewed', {})
+            }
+        }
+    }
 
     // 检查是否已经初始化
     if (!windowObject[identifier + 'cnt']) {
@@ -44,6 +63,7 @@ type FunType = (...args: any[]) => unknown;
                 });
                 return uniqueID;
             };
+            autoMonitorPage();
         }
     }
 })(window, 'WorkmagicPixel', localStorage);

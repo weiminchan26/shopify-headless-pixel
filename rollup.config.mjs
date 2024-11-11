@@ -27,12 +27,12 @@ export default {
         ts({ 
             tsconfig: path.resolve(__dirname, 'tsconfig.json') 
         }),
-        terser(), // 使用 terser 插件来压缩代码
-        new obfuscatorPlugin({
-            rotateStringArray: true, // 旋转字符串数组
-            stringArrayThreshold: 0.75, // 字符串数组阈值
-            controlFlowFlattening: true, // 控制流平坦化
-            deadCodeInjection: true // 死代码注入
-        })
+        // terser(), // 使用 terser 插件来压缩代码
+        // new obfuscatorPlugin({
+        //     rotateStringArray: true, // 旋转字符串数组
+        //     stringArrayThreshold: 0.75, // 字符串数组阈值
+        //     controlFlowFlattening: true, // 控制流平坦化
+        //     deadCodeInjection: true // 死代码注入
+        // })
     ] 
 }
